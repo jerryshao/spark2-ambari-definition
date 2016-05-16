@@ -65,11 +65,11 @@ hadoop_bin_dir = stack_select.get_hadoop_dir("bin")
 if stack_version_formatted and check_stack_feature(StackFeature.ROLLING_UPGRADE, stack_version_formatted):
   hadoop_home = stack_select.get_hadoop_dir("home")
   spark_conf = format("{stack_root}/current/{component_directory}/conf")
-  spark_log_dir = config['configurations']['spark-env']['spark_log_dir']
+  spark_log_dir = config['configurations']['spark2-env']['spark_log_dir']
   spark_pid_dir = status_params.spark_pid_dir
   spark_home = format("{stack_root}/current/{component_directory}")
 
-spark_thrift_server_conf_file = spark_conf + "/spark-thrift-sparkconf.conf"
+spark_thrift_server_conf_file = spark_conf + "/spark2-thrift-sparkconf.conf"
 java_home = config['hostLevelParams']['java_home']
 
 hdfs_user = config['configurations']['hadoop-env']['hdfs_user']
@@ -82,7 +82,7 @@ hive_user = status_params.hive_user
 spark_group = status_params.spark_group
 user_group = status_params.user_group
 spark_hdfs_user_dir = format("/user/{spark_user}")
-spark_history_dir = default('/configurations/spark-defaults/spark.history.fs.logDirectory', "hdfs:///spark2-history")
+spark_history_dir = default('/configurations/spark2-defaults/spark.history.fs.logDirectory', "hdfs:///spark2-history")
 
 spark_history_server_pid_file = status_params.spark_history_server_pid_file
 spark_thrift_server_pid_file = status_params.spark_thrift_server_pid_file
@@ -109,19 +109,19 @@ else:
 # spark-defaults params
 spark_yarn_historyServer_address = default(spark_history_server_host, "localhost")
 
-spark_history_ui_port = config['configurations']['spark-defaults']['spark.history.ui.port']
+spark_history_ui_port = config['configurations']['spark2-defaults']['spark.history.ui.port']
 
-spark_env_sh = config['configurations']['spark-env']['content']
-spark_log4j_properties = config['configurations']['spark-log4j-properties']['content']
-spark_metrics_properties = config['configurations']['spark-metrics-properties']['content']
+spark_env_sh = config['configurations']['spark2-env']['content']
+spark_log4j_properties = config['configurations']['spark2-log4j-properties']['content']
+spark_metrics_properties = config['configurations']['spark2-metrics-properties']['content']
 
 hive_server_host = default("/clusterHostInfo/hive_server_host", [])
 is_hive_installed = not len(hive_server_host) == 0
 
 security_enabled = config['configurations']['cluster-env']['security_enabled']
 kinit_path_local = get_kinit_path(default('/configurations/kerberos-env/executable_search_paths', None))
-spark_kerberos_keytab =  config['configurations']['spark-defaults']['spark.history.kerberos.keytab']
-spark_kerberos_principal =  config['configurations']['spark-defaults']['spark.history.kerberos.principal']
+spark_kerberos_keytab =  config['configurations']['spark2-defaults']['spark.history.kerberos.keytab']
+spark_kerberos_principal =  config['configurations']['spark2-defaults']['spark.history.kerberos.principal']
 
 spark_thriftserver_hosts = default("/clusterHostInfo/spark2_thriftserver_hosts", [])
 has_spark_thriftserver = not len(spark_thriftserver_hosts) == 0
@@ -160,18 +160,18 @@ if 'nm_hosts' in config['clusterHostInfo'] and len(config['clusterHostInfo']['nm
   spark_thrift_master = "local[4]"
 
 if has_spark_thriftserver and 'spark-thrift-sparkconf' in config['configurations']:
-  spark_thrift_sparkconf = config['configurations']['spark-thrift-sparkconf']
-  spark_thrift_cmd_opts_properties = config['configurations']['spark-env']['spark_thrift_cmd_opts']
+  spark_thrift_sparkconf = config['configurations']['spark2-thrift-sparkconf']
+  spark_thrift_cmd_opts_properties = config['configurations']['spark2-env']['spark_thrift_cmd_opts']
   if is_hive_installed:
     # update default metastore client properties (async wait for metastore component) it is useful in case of
     # blueprint provisioning when hive-metastore and spark-thriftserver is not on the same host.
     spark_hive_properties.update({
       'hive.metastore.client.socket.timeout' : config['configurations']['hive-site']['hive.metastore.client.socket.timeout']
     })
-    spark_hive_properties.update(config['configurations']['spark-hive-site-override'])
+    spark_hive_properties.update(config['configurations']['spark2-hive-site-override'])
 
-  if 'spark-thrift-fairscheduler' in config['configurations'] and 'fairscheduler_content' in config['configurations']['spark-thrift-fairscheduler']:
-    spark_thrift_fairscheduler_content = config['configurations']['spark-thrift-fairscheduler']['fairscheduler_content']
+  if 'spark-thrift-fairscheduler' in config['configurations'] and 'fairscheduler_content' in config['configurations']['spark2-thrift-fairscheduler']:
+    spark_thrift_fairscheduler_content = config['configurations']['spark2-thrift-fairscheduler']['fairscheduler_content']
 
 default_fs = config['configurations']['core-site']['fs.defaultFS']
 hdfs_site = config['configurations']['hdfs-site']

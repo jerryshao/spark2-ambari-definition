@@ -49,7 +49,7 @@ def setup_spark(env, type, upgrade_type = None, action = None):
     params.HdfsResource(None, action="execute")
 
   PropertiesFile(format("{spark_conf}/spark-defaults.conf"),
-    properties = params.config['configurations']['spark-defaults'],
+    properties = params.config['configurations']['spark2-defaults'],
     key_value_delimiter = " ",
     owner=params.spark_user,
     group=params.spark_group,
@@ -94,7 +94,7 @@ def setup_spark(env, type, upgrade_type = None, action = None):
 
   if params.has_spark_thriftserver:
     PropertiesFile(params.spark_thrift_server_conf_file,
-      properties = params.config['configurations']['spark-thrift-sparkconf'],
+      properties = params.config['configurations']['spark2-thrift-sparkconf'],
       owner = params.hive_user,
       group = params.user_group,
       key_value_delimiter = " ",

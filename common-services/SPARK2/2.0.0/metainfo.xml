@@ -140,35 +140,35 @@
             <configFile>
               <type>env</type>
               <fileName>spark-log4j.properties</fileName>
-              <dictionaryName>spark-log4j-properties</dictionaryName>
+              <dictionaryName>spark2-log4j-properties</dictionaryName>
             </configFile>
             <configFile>
               <type>env</type>
               <fileName>spark-env.sh</fileName>
-              <dictionaryName>spark-env</dictionaryName>
+              <dictionaryName>spark2-env</dictionaryName>
             </configFile>
             <configFile>
               <type>env</type>
               <fileName>spark-metrics.properties</fileName>
-              <dictionaryName>spark-metrics-properties</dictionaryName>
+              <dictionaryName>spark2-metrics-properties</dictionaryName>
             </configFile>
             <configFile>
               <type>properties</type>
               <fileName>spark-defaults.conf</fileName>
-              <dictionaryName>spark-defaults</dictionaryName>
+              <dictionaryName>spark2-defaults</dictionaryName>
             </configFile>
           </configFiles>
         </component>
       </components>
 
       <configuration-dependencies>
-        <config-type>spark-defaults</config-type>
-        <config-type>spark-env</config-type>
-        <config-type>spark-log4j-properties</config-type>
-        <config-type>spark-metrics-properties</config-type>
-        <config-type>spark-thrift-sparkconf</config-type>
-        <config-type>spark-hive-site-override</config-type>
-        <config-type>spark-thrift-fairscheduler</config-type>
+        <config-type>spark2-defaults</config-type>
+        <config-type>spark2-env</config-type>
+        <config-type>spark2-log4j-properties</config-type>
+        <config-type>spark2-metrics-properties</config-type>
+        <config-type>spark2-thrift-sparkconf</config-type>
+        <config-type>spark2-hive-site-override</config-type>
+        <config-type>spark2-thrift-fairscheduler</config-type>
       </configuration-dependencies>
 
       <commandScript>
