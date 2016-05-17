@@ -18,6 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 import socket
+import tarfile
+import os
+from contextlib import closing
 
 from resource_management.libraries.script.script import Script
 from resource_management.libraries.resources.hdfs_resource import HdfsResource
@@ -29,6 +32,19 @@ from resource_management.libraries.functions.stack_features import check_stack_f
 from resource_management.libraries.functions import StackFeature
 from resource_management.libraries.functions.show_logs import show_logs
 
+
+def make_tarfile(output_filename, source_dir):
+  try:
+    os.remove(output_filename)
+  except OSError:
+    pass
+  parent_dir=os.path.dirname(output_filename)
+  if not os.path.exists(parent_dir):
+    os.makedirs(parent_dir)
+  with closing(tarfile.open(output_filename, "w:gz")) as tar:
+    tar.add(source_dir, arcname=os.path.basename(source_dir))
+
+
 def spark_service(name, upgrade_type=None, action=None):
   import params
 
@@ -39,8 +55,11 @@ def spark_service(name, upgrade_type=None, action=None):
       effective_version = format_stack_version(effective_version)
 
     if effective_version and check_stack_feature(StackFeature.SPARK_16PLUS, effective_version):
-      # copy spark-hdp-assembly.jar to hdfs
-      #copy_to_hdfs("spark", params.user_group, params.hdfs_user, host_sys_prepped=params.host_sys_prepped)
+      # create & copy spark2-hdp-yarn-archive.tar.gz to hdfs
+      source_dir=params.spark_home+"/jars"
+      tmp_archive_file="/tmp/spark2/spark2-hdp-yarn-archive.tar.gz"
+      make_tarfile(tmp_archive_file, source_dir)
+      copy_to_hdfs("spark2", params.user_group, params.hdfs_user, host_sys_prepped=params.host_sys_prepped)
       # create spark history directory
       params.HdfsResource(params.spark_history_dir,
                           type="directory",
