@@ -69,7 +69,7 @@ if stack_version_formatted and check_stack_feature(StackFeature.ROLLING_UPGRADE,
   spark_pid_dir = status_params.spark_pid_dir
   spark_home = format("{stack_root}/current/{component_directory}")
 
-spark_thrift_server_conf_file = spark_conf + "/spark2-thrift-sparkconf.conf"
+spark_thrift_server_conf_file = spark_conf + "/spark-thrift-sparkconf.conf"
 java_home = config['hostLevelParams']['java_home']
 
 hdfs_user = config['configurations']['hadoop-env']['hdfs_user']
