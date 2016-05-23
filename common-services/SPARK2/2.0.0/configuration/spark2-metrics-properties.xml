@@ -21,7 +21,7 @@
 <configuration supports_final="true">
   <property>
     <name>content</name>
-    <description>Spark-metrics-properties</description>
+    <description>Spark2-metrics-properties</description>
     <value>
 # syntax: [instance].sink|source.[name].[options]=[value]
 

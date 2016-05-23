@@ -104,12 +104,6 @@ export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-{{hadoop_conf_dir}}}
 # The java implementation to use.
 export JAVA_HOME={{java_home}}
 
-if [ -d "/etc/tez/conf/" ]; then
-  export TEZ_CONF_DIR=/etc/tez/conf
-else
-  export TEZ_CONF_DIR=
-fi
-
 </value>
     <value-attributes>
       <type>content</type>
