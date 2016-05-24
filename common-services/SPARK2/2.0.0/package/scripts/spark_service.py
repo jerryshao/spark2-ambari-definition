@@ -42,7 +42,8 @@ def make_tarfile(output_filename, source_dir):
   if not os.path.exists(parent_dir):
     os.makedirs(parent_dir)
   with closing(tarfile.open(output_filename, "w:gz")) as tar:
-    tar.add(source_dir, arcname=os.path.basename(source_dir))
+    for file in os.listdir(source_dir):
+      tar.add(os.path.join(source_dir,file),arcname=file)
 
 
 def spark_service(name, upgrade_type=None, action=None):
